@@ -46,17 +46,18 @@ class FamilyStructure:
         # fill this method and update the return
         # member["first_name"] = self.first_name --> porque no es colocado?
         member["last_name"] = self.last_name
-        member["id"] = self._generateId()
+        if "id" not in member: 
+            member["id"] = self._generateId()
         member["lucky_numbers"] = list(member.get("lucky_numbers", set()))
         self._members.append(member)
         return member
 
     def delete_member(self, id):
         # fill this method and update the return
-        for position in range(len(self._members)):
-            if self._members[position][id] == id:
-                self._members.pop(position)
-            return None
+        for member in self._members:
+            if member.get("id") == id:
+                self._members.remove(member)
+                return {"done": True}
           
 
     def get_member(self, id):

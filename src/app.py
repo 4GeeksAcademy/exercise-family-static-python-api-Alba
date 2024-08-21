@@ -32,14 +32,14 @@ def handle_family():
         "hello": "world",
         "family": members
     }
-    return jsonify(response_body), 200
+    return jsonify(members), 200
 
-@app.route('/members/<int:id>', methods=['GET'])
+@app.route('/member/<int:id>', methods=['GET'])
 def get_one_member(id):
     member = jackson_family.get_member(id)
     return jsonify(member), 200
 
-@app.route('/members', methods=['POST'])
+@app.route('/member', methods=['POST'])
 def create_member():
     member = request.json
     if member:
@@ -48,12 +48,12 @@ def create_member():
     else:
         return 'error', 400
 
-@app.route('/members/<int:id>', methods=['DELETE'])
+@app.route('/member/<int:id>', methods=['DELETE'])
 def delete_member(id):
     member = jackson_family.get_member(id)
     if member:
-        jackson_family.delete_member(id)
-        return jsonify({'msg': 'deleted'})
+        delete = jackson_family.delete_member(id)
+        return jsonify(delete)
     else:
         return jsonify({'msg': 'not found'})
 
